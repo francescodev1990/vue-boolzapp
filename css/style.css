@@ -3,3 +3,17 @@
     padding: 0;
     box-sizing: 0;
 }
+#app{
+    width: auto;
+    height: 100vh;
+    background-color: #009688;
+    background-image:
+      linear-gradient(
+        to bottom, 
+        #009688,
+        #009688 15%,
+        #DCDBD2 15%,
+        #DCDBD2 85%,
+        #DCDBD2 85%
+    );
+}
