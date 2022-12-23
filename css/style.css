@@ -20,13 +20,13 @@
 .io {
     width: 150px;
     border-radius: 100%;
-    margin-top: 25px;
-    margin-left: 150px;
+    margin-top: 5px;
+    margin-left: 15px;
 }
 
 .main-windows {
-    width: 1000px;
-    height: 991px;
+    width: 1350px;
+    height: 1100px;
     background-color: white;
     margin-left: 650px;
     position: absolute;
