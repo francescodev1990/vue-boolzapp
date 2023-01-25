@@ -8,35 +8,108 @@
     <link rel="shortcut icon" href="#">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/5bbb51be4c.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.1.1/luxon.min.js"
+        integrity="sha512-hZKz8wkgOcWeZanRioE6H6AC3OJspzJQyDBB5jLoZ1jIKbYDt5MwVIvU703WwE4sjvKZw9uNmmYlt29xKS27RA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Document</title>
 </head>
 
-<body>
-    <div id="app">
-        <div class="container">
-            <div class="sidebar">
-                <div class="top-bar">
-                    <div class="img-principal">
-                        
+<div id="app">
+    <div class="container">
+        <!-- sidebar -->
+        <div class="sidebar">
+            <div class="top-sidebar">
+                <div class="image-contact">
+                    <img :src="`./img/avatar_1${user.avatar}.jpg`">
+                    <span>{{ user.name }}</span>
+                </div>
+                <div class="icons-top margin-right-10">
+                    <ul class="unstyled-list">
+                        <li class="text-grey"><i class="fa-solid fa-circle-notch"></i></li>
+                        <li class="text-grey"><i class="fa-solid fa-message"></i></li>
+                        <li class="text-grey"><i class="fa-solid fa-ellipsis-vertical"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="notify-sidebar">
+                <i class="fa-solid fa-bell-slash circle-white"></i>
+                <div class="flex-column font-size-12">
+                    <span>Ricevi notifiche di nuovi messaggi</span>
+                    <a href="">Attiva notifiche desktop</a>
+                </div>
+            </div>
+            <div class="searchbar-sidebar">
+                <i class="fa-solid fa-magnifying-glass text-grey bg-white"></i>
+                <input type="text" placeholder="Cerca o inizia una nuova chat" class="full-searchbar" name="searchbar"
+                    id="searchbar" v-model="name_filter">
+            </div>
+            <div class="chat-sidebar">
+                <ul class="unstyled-list">
+                    <li class="item-chat" v-for="(item, index) in searchChat"
+                        :class="(chat_active == index) ? 'active' : ''" @click="changeChat(index)">
+                        <div class="image-contact">
+                            <img :src="`./img/avatar${item.avatar}.jpg`">
+                        </div>
+                        <div class="info-contact">
+                            <span>{{ item.name }}</span>
+                            <span class="font-size-12 text-grey">Ultimo messaggio ricevuto</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- main container -->
+        <div class="main-container">
+            <div class="top-main-container">
+                <div class="user-main-container">
+                    <div class="image-contact">
+                        <img :src="`./img/avatar${contacts[chat_active].avatar}.jpg`">
+                    </div>
+                    <div class="info-contact">
+                        <span>{{ contacts[chat_active].name }}</span>
+                        <span class="font-size-12 text-grey">Ultimo accesso oggi alle 12:00</span>
                     </div>
                 </div>
-                <div class="main-windows">
-                    <img class="io" src="./assets/avatar_io.jpg">
+                <div class="icons-top margin-right-10">
+                    <ul class="unstyled-list">
+                        <li class="text-grey"><i class="fa-solid fa-magnifying-glass"></i></li>
+                        <li class="text-grey"><i class="fa-solid fa-paperclip"></i></li>
+                        <li class="text-grey"><i class="fa-solid fa-ellipsis-vertical"></i></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="chat-container">
+                <ul class="unstyled-list">
+                    <li class="list-item" v-for="(item, index) in contacts[chat_active].messages"
+                        :class="(item.status == 'sent') ? 'message-sent' : ''">
+                        <div class="message" :class="(item.status == 'sent') ? 'bg-green' : 'bg-white'">
+                            <span class="font-size-15">{{ item.message }}</span>
+                            <span class="font-size-10 text-grey absolute">{{ splitDate(item.date) }}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottombar-main-container">
+                <div class="emoji text-darkgrey">
+                    <i class="fa-regular fa-face-smile"></i>
+                </div>
+                <div class="text-bar">
+                    <input type="text" placeholder="Scrivi un messaggio" v-model="new_message"
+                        @keyup.enter="sendNewMessage">
+                </div>
+                <div class="microphone text-darkgrey">
+                    <i class="fa-solid fa-microphone"></i>
                 </div>
             </div>
         </div>
-
-
     </div>
+</div>
 
 
 
 
-
-
-
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script type="text/javascript" src="./js/script.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script type="text/javascript" src="./js/script.js"></script>
 </body>
 
 </html>
